@@ -6,14 +6,14 @@ except ImportError:
 config = {
     'description': 'Python Cloudflare Wrapper',
     'author': 'Tim Sherwood',
-    'url': '',
-    'download_url': '',
-    'author_email': '',
+    'url': 'https://github.com/timworx/cloudconnect',
+    'download_url': 'https://github.com/timworx/cloudconnect/archive/master.zip',
+    'author_email': 'tim@dualmediasolutions.com',
     'version': '0.1',
-    'install_requires': ['nose', 'requests', 'tldextract'],
+    'install_requires': ['nose', 'requests>=2.3.0',],
     'packages': ['cloudconnect'],
     'scripts': [],
-    'name': 'CloudConnect'
+    'name': 'cloudconnect',
 }
 
 setup(**config)
