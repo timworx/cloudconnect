@@ -2,12 +2,14 @@
 
 CloudConnect is a simple pure python interface for v4 of the [CloudFlare API](https://api.cloudflare.com/).
 
-At the moment it mostly provides a thin wrapper around CloudFlare API connections. Each wrapped call returns the JSON data as a python dict.  Over time it will also include commands that complement and extend the current API's capabilities.  
-An example would be getting record data based on domain name, rather than just by ID as is required currently.
+At the moment it mostly provides a thin wrapper around CloudFlare API connections. Each wrapped call returns the JSON data as a python dict.  
+
+Over time it will also include commands that complement and extend the current CF API's capabilities.  
+A current example is listing DNS records based on domain name, rather than just by ID.
 
 ## Under Development
 
-This project is currently underdevelopment. Pull requests and suggested code improvements are welcome. 
+This project is currently under development. Pull requests and suggested code improvements are welcome. 
 
 ## Install
 
@@ -25,19 +27,34 @@ Calls to the CloudFlare API with CloudConnect will return a dict of the JSON dat
 
 ```python
 >>> from cloudconnect import CloudConnect
->>> cf = Cloudconnect('email@example.com', 'd2gYOURoAPIoKEYo24fmdsf')
+>>> cf = CloudConnect('email@example.com', 'd2gYOURoAPIoKEYo24fmdsf')
 ```
 
 **Create a new zone (add a domain)** with `create_zone` and skip the automagic record grabbing by CloudFlare.
 
 ```python
+>>> from cloudconnect import CloudConnect
+>>> cf = CloudConnect('email@example.com', 'd2gYOURoAPIoKEYo24fmdsf')
 >>> cf.create_zone('mydomain.com', jump_start=False)
-{u'errors': [], u'messages': [], u'result': {u'status': u'pending', u'original_name_servers': [u'ns1.com', u'ns2.com'], u'original_dnshost': None, u'name': u'anotherdomain.com', u'owner': {u'type': u'user', u'id': u'd2gYOURoAPIoKEYo24fmdsf', u'email': u'tim@dualmediasolutions.com'}, u'original_registrar': None, u'paused': False, u'modified_on': u'2015-06-17T21:37:45.967464Z', u'created_on': u'2015-06-17T21:37:45.930702Z', u'meta': {u'page_rule_quota': u'3', u'wildcard_proxiable': False, u'step': 4, u'phishing_detected': False, u'multiple_railguns_allowed': False, u'custom_certificate_quota': 0}, u'plan': {u'externally_managed': False, u'name': u'Free Website', u'price': 0, u'can_subscribe': True, u'currency': u'USD', u'frequency': u'', u'legacy_id': u'free', u'id': u'0feeeeeeeeeeeeeeeeeeeeeeeeeeeeee', u'is_subscribed': True}, u'name_servers': [u'eric.ns.cloudflare.com', u'gina.ns.cloudflare.com'], u'development_mode': 0, u'type': u'full', u'id': u'd2gYOURoAPIoKEYo24fmdsf', u'permissions': [u'#analytics:read', u'#billing:edit', u'#billing:read', u'#cache_purge:edit', u'#dns_records:edit', u'#dns_records:read', u'#organization:edit', u'#organization:read', u'#ssl:edit', u'#ssl:read', u'#waf:edit', u'#waf:read', u'#zone:edit', u'#zone:read', u'#zone_settings:edit', u'#zone_settings:read']}, u'success': True}
+{u'errors': [],
+ u'messages': [],
+ u'result': {u'status': u'pending',
+             u'original_name_servers': [u'ns1.com', u'ns2.com'],
+             u'original_dnshost': None,
+             u'name': u'anotherdomain.com',
+             u'owner': {u'type': u'user', 
+                        u'id': u'd2gYOURoAPIoKEYo24fmdsf', 
+                        u'email': u'tim@dualmediasolutions.com'},
+             u'original_registrar': None,
+             u'paused': False, 
+             u'modified_on': u'2015-06-17T21:37:45.967464Z',
+             u'created_on': u'2015-06-17T21:37:45.930702Z',
+  ...
 ```
 
 **A Note About** `**kwargs`
 
-You can pass `**kwargs` for API call arguments/parameters that are not required by cloudflare for each call. They are passed as a part of either `data=` or `params=` as appropriate.
+You can use `**kwargs` to pass arguments/parameters that are not required by Cloudflare. For example, notice how `jump_start=False` is passed above.
 
 ### Current Queries 
 
@@ -46,7 +63,7 @@ You can pass `**kwargs` for API call arguments/parameters that are not required 
 
 
 #### Create a Zone (Add a domain)
-`cf.create_zone(domain, **kwargs)
+`cf.create_zone(domain, **kwargs)`
 
 #### Get zone_id
 `cf.get_zone_id(domain)`
