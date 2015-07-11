@@ -1,11 +1,18 @@
 # CloudConnect
 
+![Build Status](https://travis-ci.org/timworx/cloudconnect.svg?branch=master)
+
 CloudConnect is a simple pure python interface for v4 of the [CloudFlare API](https://api.cloudflare.com/).
 
 At the moment it mostly provides a thin wrapper around CloudFlare API connections. Each wrapped call returns the JSON data as a python dict.  
 
 Over time it will also include commands that complement and extend the current CF API's capabilities.  
 A current example is listing DNS records based on domain name, rather than just by ID.
+
+## Python Versions Supported
+
+- [x] Python 2.7  
+- [x] Python 3.3+
 
 ## Under Development
 
@@ -16,6 +23,12 @@ This project is currently under development. Pull requests and suggested code im
 ```bash
 $ git clone https://github.com/timworx/cloudconnect.git
 $ python setup.py install
+```
+
+Or via pip with:
+
+```bash
+$ pip install git+git://github.com/timworx/cloudconnect.git
 ```
 
 ## Usage
