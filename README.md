@@ -1,6 +1,6 @@
 # CloudConnect
 
-![Build Status](https://travis-ci.org/timworx/cloudconnect.svg?branch=master)
+[![Build Status](https://travis-ci.org/timworx/cloudconnect.svg?branch=master)](https://travis-ci.org/timworx/cloudconnect)
 
 CloudConnect is a simple pure python interface for v4 of the [CloudFlare API](https://api.cloudflare.com/).
 

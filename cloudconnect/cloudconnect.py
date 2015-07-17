@@ -75,6 +75,11 @@ class CloudConnect:
         r = requests.delete(**self.url_kwargs(url, data=data))
         return self.parse_json(r)
 
+    def patch(self, url, data=None):
+        """ Patch request that returns JSON. Takes data as dict """
+        r = requests.patch(**self.url_kwargs(url, data=data))
+        return self.parse_json(r)
+
     def get_zone_id(self, domain):
         """ Find the ID for a specific domain """
         data = self.get('zones', {'name':domain})
@@ -90,6 +95,35 @@ class CloudConnect:
             data.update(kwargs)
         return self.post('zones', data)
 
+    def list_zones(self, **kwargs):
+        """ List, search, sort, and filter all zones (domains) """
+        return self.get('zones', kwargs)
+
+    def zone_details(self, zone_id):
+        """ Get zone details. """
+        return self.get('zones/{}'.format(zone_id))
+
+    def edit_zone_properties(self, zone_id, **kwargs):
+        """ Edit zone properties. Only one can be changed at a time. """
+        return self.patch('zones/{}'.format(zone_id), kwargs)
+
+    def delete_zone(self, zone_id):
+        """ Delete an existing zone. Plans & subscriptions must be cancelled"""
+        return self.delete('zones/{}'.format(zone_id))
+
+    def purge_cache(self, zone_id, **kwargs):
+        """ Basic purge cache command to remove files from cloudflare """
+        return self.delete('zones/{}'.format(zone_id), kwargs)
+
+    def purge_all_files(self, zone_id):
+        """ Remove ALL files from CloudFlare's cache """
+        return self.purge_cache(zone_id, purge_everything=True)
+
+    def purge_individual_files(self, zone_id, files):
+        if not isinstance(files, list):
+            files = [files]
+        return self.purge_cache(zone_id, files=files)
+
     def create_dns_record(self, zone_id, r_type, name, content, **kwargs):
         """ Create a DNS Record """
         url = 'zones/{}/dns_records'.format(zone_id)
@@ -98,15 +132,20 @@ class CloudConnect:
             data.update(kwargs)
         return self.post(url, data)
 
-    def update_dns_record(self, zone_id, rec_id, **kwargs):
-        """ Update a DNS Record """
-        url = 'zones/{}/dns_records/{}'.format(zone_id, rec_id)
-        return self.put(url, kwargs)
-
     def list_dns_records(self, zone_id, **kwargs):
         """ List DNS Record from zone ID """
         url = 'zones/{}/dns_records'.format(zone_id)
         return self.get(url, kwargs)
+
+    def dns_record_details(self, zone_id, rec_id):
+        """ Get the details of a DNS records by ID """
+        url = 'zones/{}/dns_records/{}'.format(zone_id, rec_id)
+        return self.get(url)
+
+    def update_dns_record(self, zone_id, rec_id, **kwargs):
+        """ Update a DNS Record """
+        url = 'zones/{}/dns_records/{}'.format(zone_id, rec_id)
+        return self.put(url, kwargs)
 
     def domain_list_dns_records(self, domain, **kwargs):
         """ List DNS records from domain """
