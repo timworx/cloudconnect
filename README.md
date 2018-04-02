@@ -1,5 +1,12 @@
 # CloudConnect
 
+## DEPRECATED
+> Use the [official Python wrapper](https://github.com/cloudflare/python-cloudflare) provided by Cloudflare.
+> This was built when v4 of the API was very fresh and the official wrapper had not existed yet.
+> 
+---
+
+
 [![Build Status](https://travis-ci.org/timworx/cloudconnect.svg?branch=master)](https://travis-ci.org/timworx/cloudconnect)
 
 CloudConnect is a simple pure python interface for v4 of the [CloudFlare API](https://api.cloudflare.com/).
