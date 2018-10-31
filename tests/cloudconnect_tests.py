@@ -2,7 +2,6 @@ from unittest import TestCase
 import json
 import responses
 import requests
-import pytest
 
 from cloudconnect.cloudconnect import CloudConnect
 #from cloudflare.test_config import email, apikey
