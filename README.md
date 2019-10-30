@@ -19,7 +19,7 @@ A current example is listing DNS records based on domain name, rather than just 
 ## Python Versions Supported
 
 - [x] Python 2.7  
-- [x] Python 3.3+
+- [x] Python 3.5+
 
 ## Under Development
 
